@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+     <head>		
+		<title>Zadanie1</title>
+		<meta charset="utf-8"> 
+		<style type="text/css">
+			fieldset { 
+				width: 500px;
+				line-height: 30px;
+				}
+		</style>    
+	 </head>
+	 
+     <body>
+		<fieldset>
+			<legend>Szczegóły konta:</legend>
+			<form>
+				Imię: <input type="text"><br />
+				Email: <input type="tekst">
+			</form>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Kilka informacji o Tobie:</legend>
+			<form>
+				<p>Czy odwiedzisz nas ponownie?<br />
+					<input type="radio" name="visit" value="Yes" />Tak
+					<input type="radio" name="visit" value="No" />Nie
+					<input type="radio" name="visit" value="Maybe" />Może
+				</p>
+				<p>Komentarz: <br />
+				<textarea name="comments" cols="30" rows="4"></textarea> 
+				</p>
+				<p><input type="checkbox" name="service" value="spotify" checked="checked"/> Chcę być informowany o aktualizacjach</p>
+			<input type="submit" name="send" value="Prześlij informacje" />  
+			</form>
+		</fieldset>
+		
+     </body>
+
+</html>
