@@ -1,0 +1,1 @@
+# SealcodeSzumiLato2017
