@@ -1,0 +1,43 @@
+body{
+	font-family: "Comic Sans MS", "Arial";
+}
+div.house{
+	background-image: url("housewhiteboard.jpg");
+	width: 794px;
+	height: 595px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: white;
+	margin: auto;
+}
+div.calender{
+	position: relative;
+	top: 120px;
+	width: 115px;
+	height: 100px;
+	left: 4px;
+}
+div.year{
+	position: relative;
+    top: 42px;
+	font-size: 12px;
+}
+div.day{
+	position: relative;
+    top: -5px;
+	font-size: 20px;
+}
+div.month{
+	position: relative;
+	font-size: 12px;
+	top: 6px;
+}
+form.list{
+	width: 400px;
+	position: relative;
+    top: 110px;
+    left: 380px;
+}
+fieldset{
+	overflow: auto; height: 20em; overflow: auto; height: 20em; overflow: auto; height: 20em;
+}
