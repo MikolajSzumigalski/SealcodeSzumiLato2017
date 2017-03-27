@@ -1,0 +1,64 @@
+div.box{
+  display: flex;
+  flex-flow:wrap;
+  border: solid black 3;
+  height: 200px;
+}
+.box>div {
+flex-basis: 30%
+}
+div.A{
+  background-color: red;
+  order: 2;
+  flex-grow: 1;
+}
+div.B{
+  background-color: blue;
+  order: 4;
+  flex-grow: 1;
+}
+div.C{
+  background-color: green;
+  order: 1;
+  flex-grow: 1;
+}
+div.D{
+  background-color: yellow;
+  order: 10;
+  flex-grow: 2;
+}
+div.E{
+  background-color: orange;
+  order: 3;
+  flex-grow: 1;
+}
+div.F{
+  background-color: darkviolet;
+  order: 6;
+  flex-grow: 1;
+}
+div.G{
+  background-color: palegreen;
+  order: 8;
+  flex-grow: 1;
+}
+div.H{
+  background-color: deeppink;
+  order: 5;
+  flex-grow: 2;
+}
+div.I{
+  background-color: brown;
+  order: 7;
+  flex-grow: 1;
+}
+div.J{
+  background-color: grey;
+  order: 0;
+  flex-grow: 1;
+}
+div.K{
+  background-color: darksalmon;
+  order: 9;
+  flex-grow: 1;
+}
