@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title>Zadanie 1.</title>
+	</head>
+	<body>
+		<h1 id="heading">xyz</h1>
+		<p id="paragraph-one">xyz</p>
+		<p id="paragraph-two">xyz</p>
+		<p id="paragraph-three">xyz</p>
+		<p id="paragraph-four">xyz</p>
+	</body>
+	<script>
+		var imienazw = document.getElementById('heading');
+		imienazw.innerHTML = "Mikołaj Szumigalski";
+		
+		var d= new Date();
+		var tydzien = ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota'];
+		var rok = d.getFullYear();
+		var ak1 = document.getElementById('paragraph-one');
+		var dzien = d.getDate();
+		var miesiac = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'paździenika', 'listopada', 'grudnia'];
+		var date = d.toDateString();
+		var currentDate = new Date();
+		ak1.innerHTML = "Data, która pojawi się przy otwarciu tej strony to: "+ tydzien[d.getDay()] +" "+ dzien+" " + miesiac[d.getMonth()] +" "+ rok+"r.<br />"+"Godzina w momencie otwarcia strony:" +currentDate.getHours() + ":" + currentDate.getMinutes() + ":"+currentDate.getSeconds()+ ":"+currentDate.getMilliseconds();
+		
+		var ak2 = document.getElementById('paragraph-two');
+		var zdanie = "Podstawą szczęścia jest wolność, a podstawą wolności odwaga.";
+		var tab = zdanie.split(',');
+		var tabr = tab[1].split("");
+		var reverse = tabr.reverse();
+		var rev = reverse.join("");
+		ak2.innerHTML = "Operuję na zdaniu: \"Podstawą szczęścia jest wolność, a podstawą wolności odwaga.\"<br /><br />Trzynastym znakiem w tym zdaniu jest: "+ zdanie[13]+".<br />Znaki pomiędzy 7. a 12. pozycją to: "+ zdanie.substring(7,12)+".<br />Pierwszy raz znak 'ą' pojawia się na miejscu: " +zdanie.indexOf('ą')+".<br />Ten ciąg ma " +zdanie.length+ " znaków.<br />Po zamianie 'podstawą' na 'fundamentem' mamy:" +zdanie.replace('podstawą', 'fundamentem')+"<br />Część zdania przed przecinkiem to: " +tab[0]+".<br />Druga część zdania po odwróceniu to:"+ rev; // UWAGA: przyda tu się metoda join(), proszę znaleźć potrzebne informacje na jej temat!"
+		
+		var ak3 = document.getElementById('paragraph-three');
+		var func = "x^2 + 5x + 6";
+		var b = parseInt(func[6]);
+		var c = parseInt(func[11]);
+		var a = 1;
+		var delta = Math.pow(b,2) - (4*a*c);
+		var sqrtdelta = Math.sqrt(delta);
+		var x1 = (-b + delta)/2*a;
+		var x2 = (-b - delta)/2*a;
+		ak3.innerHTML = "Korzystam z dodatkowych wiadomości o obiekcie Math ze strony: //http://kursjs.pl/kurs/math.php<br /> Zadanie 1. Mam funkcję kwadratową:f(x) = "+func+"<br /><br />Wyróżnik tego trójmianu to:" +delta+".<br />Pierwiastek kwadratowy tego wyróżnika to: "+ sqrtdelta+".<br />Miejscami zerowymi tej funkcji są: "+ x1 + " i "+ x2 + ".";
+	
+		var ak4 = document.getElementById('paragraph-four');
+		var x = Math.PI/6;
+		var Number = Math.sqrt(Math.abs(Math.log(Math.pow(2,x))) + Math.max(0, x) + Math.abs(-Math.pow(Math.E, 2*x) + Math.min(-1, x)));
+		ak4.innerHTML = "Kontynuuję pracę z obiektem Math i używam obiektu Number:<br /><br />Zadanie 2. Obliczam wartość funkcji:f(x) = sqrt(|sin(ln(2^(x))) + max(0, x) + |-e^(2x) + min(-1, x)||) <br />dla x = pi/6.<br />Mój wynik to:" +Number+".<br />Wynik w notacji wykładniczej to: "+Number.toExponential()+".<br />Po zaokrąleniu wyniku w górę mam: "+Math.ceil(Number)+ "."
+	</script>
+</html>
+
