@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<title>Praca domowa nr 6</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1 class="example">Praca domowa nr 6</h1>
+			<ul>
+				<li id="li-1">Punkt 1.</li>
+				<li id="li-2">Punkt 2.</li>
+				<li id="li-3">Punkt 3.</li>
+				<li id="li-4">Punkt 4.</li>
+				<li id="li-5">Punkt 5.</li>
+				<li id="li-6">Punkt 6.</li>
+				<li id="li-7">Punkt 7.</li>
+				<li id="li-8">Punkt 8.</li>
+			</ul>
+			<p class="example">Tu jest treść akapitu</p>
+		</div>
+	<script>
+		//myslnik 1
+		var h1 = document.getElementsByClassName('example')[0];
+		h1.removeAttribute('class');
+		
+		//myslnik 2
+		h1.id = odwrocString("rotakifytnedi-ywon");
+				
+		function odwrocString(str) {
+			var wyraz = str.split("");		 
+			var odwrTab = wyraz.reverse();
+			var polTab = odwrTab.join("");
+			return polTab;
+		}
+		
+		//myslnik 3
+		var newLink = document.createElement('a');
+		newLink.href = "http://sealcode.org";
+		newLink.class = "new-class";
+		newLink.target = "blank";
+		newLink.textContent = "Sealcode"; // Wiem, że tego nie było w treści zadania, ale uznałem że warto dodać, aby link miał sens w ogóle, by go można było użyć
+		var position = document.getElementsByClassName('wrapper')[0];
+		position.appendChild(newLink);
+
+		//myslnik 4
+		var lista = document.getElementsByTagName('ul')[0];
+		while (lista.hasChildNodes()) {
+			lista.removeChild(lista.lastChild);
+		}
+		for(var i = 1; i <= 30; i++)
+		{
+			var newElement = document.createElement('li');
+			newElement.id = "new"+i;
+			var newText = document.createTextNode('Nowa treść '+i);
+			newElement.appendChild(newText);
+			lista.appendChild(newElement);
+		}
+		//myslnik 5
+		var akapit2 = document.getElementsByClassName('example')[0];
+		akapit2.textContent = "Zmieniona treść akapitu";
+	</script>	
+	</body>
+</html>
