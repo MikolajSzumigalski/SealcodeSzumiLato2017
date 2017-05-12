@@ -7,35 +7,22 @@
 		<title>TO DO LIST</title>
 	</head>
 	<body>
-		<center><img src="todolist.jpg" alt="To do list" /></center>
+		<img class="imgcenter" src="todolist.jpg" alt="To do list" />
 		<div class="house">
-			<form class="list">
-				<fieldset>
-				<legend>CO MASZ DO ZROBIENIA:</legend>
-					<p>Dodaj zadanie: <input type="text"><input type="submit" name="send" value="Dodaj" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Zrobić obiad<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Pozmywać<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Ponarzekać na życie<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Pomodlić się o motywację do nauki<input  class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Ocalić świat<input  class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Pograć w Killing Floor 2<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Ponarzekać na życie<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Trening szachowy<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Wolontariat<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Ponarzekać na życie<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Obejrzeć dr. House'a<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Ponarzekać bardzo na życie<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Stwierdzić, że jednak to nie był toczeń<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Ocalić świat<input class="usun" type="submit" name="send" value="Usuń" /></p>
-					<p><input type="checkbox" name="service" value="spotify"/> Iść spać<input class="usun" type="submit" name="send" value="Usuń" /></p>
-			</fieldset>
-			</form>
+			<div class="list">
+				<fieldset id="field">
+					<legend id="legend">CO MASZ DO ZROBIENIA:</legend>
+					<p id='add'>Dodaj zadanie: <input type="text" id ="newtask" value=""><button id="taskbutton">Dodaj</button></p>
+					<p id='listazadan'><span id="pustyid">Nie masz żadnych zadań w tej chwili</span></p>
+				</fieldset>
+			</div>
 			<div class="calender">
-				<center><div class="month">marzec</div></center>
-				<center><div class="year">2017</div></center>
-				<center><div class="day">16</div></center>
+				<div id="month">marzec</div>
+				<div id="year">2017</div>
+				<div id="day">16</div>
 			</div>
 		</div><br />
+		<script src="todo.js"></script>
 	</body>
 	<footer><p>Strona wykonana przy niedocenionym wysiłku Mikołaja Szumigalskiego</p></footer>
 </html>
