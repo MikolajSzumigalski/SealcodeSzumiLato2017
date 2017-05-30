@@ -19,6 +19,7 @@
 var tasktab = [];
 var taskobj = new Object();
 var wsk = 0;
+
 function usunZadanie(task){
 	var removeElement = document.getElementById(task);
 	var containerElement = removeElement.parentNode;
@@ -50,24 +51,27 @@ function odswiezZadania(){
 		dodajZadanie(tasktab[i]);
 	}
 };
+
 function dodajZadanieDoTablicy(){
 	tasktab[tasktab.length] = new Object();
-	var tekst = document.getElementById("newtask").value;
+	var tekst = document.getElementById("newtask").value.trim("");
+	document.getElementById("newtask").value = "";
+    tekst = tekst.split(' ').join(' ').charAt(0).toUpperCase() + tekst.slice(1).split(' ').join(' ')
 	if (tekst == "")
 	{
 		alert("Nie możesz dodać pustego zadania");
 	}
 	else
 	{
-		tekst = tekst.split(' ').join(' ').charAt(0).toUpperCase() + tekst.slice(1).split(' ').join(' ')
 		var prawda = 1;
 		var prawdaiter = 0;	
 		while(prawda == 1 && prawdaiter < tasktab.length)
 		{
+            console.log(tasktab[prawdaiter].task);
 			if(tekst == tasktab[prawdaiter].task)
 			{	
 				prawda = 0;
-				console.log("dupa");
+				console.log(prawda);
 			}
 			else
 				prawdaiter++;
@@ -118,4 +122,12 @@ function dodajZadanie(zadanie){
 };
 var ButtonNewTask = document.getElementById("taskbutton");
 ButtonNewTask.addEventListener('click', dodajZadanieDoTablicy, false);
+
+
+//ENTER jako dodawanie zadania
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 13) {
+       dodajZadanieDoTablicy();
+    }
+});
 
