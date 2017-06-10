@@ -87,18 +87,19 @@ function dodajZadanieDoTablicy(){
 		else
 			alert("Już posiadasz takie zadanie!");
 	}
+    addTaskServer(tasktab[tasktab.length-1]);
 }
 function zmienCheckBoxWTablicy(number){
 	tasktab[number].stat = - tasktab[number].stat;	
 	console.log(tasktab[number].stat);
 }
 function dodajZadanie(zadanie){
-    console.log("dupa");
+    console.log(zadanie);
 	var listazadan = document.getElementById("listazadan"); //listazadan jest "rodzicem" naszych zadań
 	if(document.getElementById("pustyid"))
 		listazadan.removeChild(listazadan.lastChild);
 	var newTask = document.createElement('p'); // tworzymy zadanie
-	zadanie.num = wsk;	
+	zadanie.num = wsk+1;	
 		var newCheckBox = document.createElement('input');
 		newCheckBox.setAttribute('type', 'checkbox'); //nadawanie atrybutu type
 		newCheckBox.setAttribute('value', 'spotify'); //nadawanie atrybutu value
@@ -107,7 +108,6 @@ function dodajZadanie(zadanie){
 			newCheckBox.checked = false;
 		else
 			newCheckBox.checked = true;
-	
 		var newDeleteButton = document.createElement('input');
 		newDeleteButton.setAttribute('type', 'submit'); //nadawanie atrybutu type
 		newDeleteButton.setAttribute('value', 'Usuń'); //nadawanie atrybutu value
@@ -122,7 +122,6 @@ function dodajZadanie(zadanie){
 	document.getElementById('d'+ wsk).addEventListener('click', function() {usunZTablicy(zadanie.num)}, false);
 	document.getElementById('c'+ wsk).addEventListener('click', function() {zmienCheckBoxWTablicy(zadanie.num)}, false);
 	wsk++;
-    addTaskServer(tasktab[tasktab.length-1]);
 };
 var ButtonNewTask = document.getElementById("taskbutton");
 ButtonNewTask.addEventListener('click', dodajZadanieDoTablicy, false);
@@ -142,13 +141,15 @@ function getTasks() { // pobieramy listę zadań po wystąpieniu odpowiedniego z
 			response.forEach(function(element) {// wywołujemy dla każdego pobranego zasobu
 				tasktab[tasktab.length] = new Object();
                 tasktab[tasktab.length-1].task = element.body.title // treść zadania
-			    tasktab[tasktab.length-1].stat = element.body.is_done;
-})});
-    dodajZadanie(tasktab[tasktab.length-1]);
+				tasktab[tasktab.length-1].stat = element.body.is_done;
+		});
+		dodajZadanie(tasktab[tasktab.length-1]);
+	});
 }
 
 function addTaskServer(task) { // wysyłamy nowe zadanie po wciśnięciu klawisza ENTER lub kliknięciu przycisku
-	qwest.post(url, {title: task.title, is_done: task.stat}, {cache: true}); // wysłanie nowego zadania w postaci obiektu o właściwościach "title" i "is_done"
+	console.log(task.task + 'bon');
+    qwest.post(url, {title: task.task, is_done: task.stat}, {cache: true}); // wysłanie nowego zadania w postaci obiektu o właściwościach "title" i "is_done"
 }
 
 function checkboxClick(event) { // stan kliknięcia checkboxa przy danym zadaniu (załóżmy, że funkcja wywołuje się po wystąpieniu pewnego zdarzenia
@@ -164,8 +165,8 @@ function deleteTask() { // usuwanie wybranego zadania pod wpływem wystąpienia 
 		refresh(); // odświeżamy stan strony
 	});
 }
-getTasks();
-console.log(tasktab.length);
+//getTasks();
+console.log(tasktab[0]);
 
 
 
