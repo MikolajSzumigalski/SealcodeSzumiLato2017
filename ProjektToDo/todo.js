@@ -93,7 +93,7 @@ function zmienCheckBoxWTablicy(number){
 	console.log(tasktab[number].stat);
 }
 function dodajZadanie(zadanie){
-    console.log("dupa");
+    console.log(zadanie);
 	var listazadan = document.getElementById("listazadan"); //listazadan jest "rodzicem" naszych zadań
 	if(document.getElementById("pustyid"))
 		listazadan.removeChild(listazadan.lastChild);
@@ -141,10 +141,13 @@ function getTasks() { // pobieramy listę zadań po wystąpieniu odpowiedniego z
 		function(xhr, response) {
 			response.forEach(function(element) {// wywołujemy dla każdego pobranego zasobu
 				tasktab[tasktab.length] = new Object();
-                tasktab[tasktab.length-1].task = element.body.title // treść zadania
-			    tasktab[tasktab.length-1].stat = element.body.is_done;
-})});
-    dodajZadanie(tasktab[tasktab.length-1]);
+                		tasktab[tasktab.length-1].task = element.body.title // treść zadania
+				tasktab[tasktab.length-1].stat = element.body.is_done;
+		});
+		dodajZadanie(tasktab[tasktab.length-1]);
+	});
+}
+    
 }
 
 function addTaskServer(task) { // wysyłamy nowe zadanie po wciśnięciu klawisza ENTER lub kliknięciu przycisku
