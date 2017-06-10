@@ -1,3 +1,8 @@
+// Adres Sealcodeowego API
+var url='http://sealcode.org:8082/api/v1/resources/task';
+
+
+
 //USTAWIANIE DATY
 	var monthtab = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "wrzesień", "październik", "listopad", "grudzień"];
 
@@ -33,6 +38,7 @@ function usunZTablicy(side){
 };
 
 function odswiezZadania(){
+	getTasks();
 	var listaodswiez = document.getElementById("listazadan");
 	while (listaodswiez.hasChildNodes()) { 
 	listaodswiez.removeChild(listaodswiez.lastChild);
@@ -130,4 +136,38 @@ document.addEventListener('keydown', function(event) {
        dodajZadanieDoTablicy();
     }
 });
+
+
+
+function getTasks() { // pobieramy listę zadań po wystąpieniu odpowiedniego zdarzenia
+	qwest.get(url, {}, {cache: true}).then(
+		function(xhr, response) {
+			response.forEach(function(element) {
+				console.log(element.body.title)// wywołujemy dla każdego pobranego zasobu
+				//tasktab[0].task.push(element.body.title); 
+				/* Teraz treść danego zadania i jego inne własciwości będą ukrywać się w tasks[index].body.nazwaWlasciwosci, np. tasks[0].body.title - nazwa pierwszego zadania w tablicy! */
+				refresh(); // odświeżamy stan strony
+	})});
+}
+
+function addTaskServer(task) { // wysyłamy nowe zadanie po wciśnięciu klawisza ENTER lub kliknięciu przycisku
+	qwest.post(url, {title: task.title, is_done: task.is_done}, {cache: true}); // wysłanie nowego zadania w postaci obiektu o właściwościach "title" i "is_done"
+}
+
+function checkboxClick(event) { // stan kliknięcia checkboxa przy danym zadaniu (załóżmy, że funkcja wywołuje się po wystąpieniu pewnego zdarzenia
+	tasks[this.id].body.is_done = this.checked; // zmiana stanu kliknięcia danego zadania w tablicy (zakładamy, że każde zadanie ma swój identyfikator, dla uproszczenia przyjąłem, że identyfikatorem jest pozycja w tablicy
+	qwest.map('PATCH', url+'/'+tasks[this.id].id, tasks[this.id].body, {cache: true}).then(function(xhr, response) { // szukamy odpowiedniego zasobu na serwerze i modyfikujemy jego ciało
+		refresh(); // odświeżamy stan strony
+	});
+}
+
+
+function deleteTask() { // usuwanie wybranego zadania pod wpływem wystąpienia pewnego zdarzenia
+	qwest.delete(url+'/'+tasks[this.id].id, null, {cache: true}).then(function(xhr, response) { // usuwamy zadanie o danym identyfikatorze (tym razem nie musimy przesyłać ciała takiego zadania)
+		refresh(); // odświeżamy stan strony
+	});
+}
+
+
+
 
