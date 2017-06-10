@@ -21,7 +21,7 @@ var url='http://sealcode.org:8082/api/v1/resources/task';
 //Tablica i obiekt do zadań 
 var tasktab = [];
 var taskobj = new Object();
-var wsk = 0;
+// var wsk = 0; // +++
 function usunZadanie(task){
 	var removeElement = document.getElementById(task);
 	var containerElement = removeElement.parentNode;
@@ -82,12 +82,13 @@ function dodajZadanieDoTablicy(){
 		{
 			tasktab[tasktab.length-1].task = document.createTextNode(tekst); // treść zadania
 			tasktab[tasktab.length-1].stat = -1; // status zadania - raczej nikt nie dodaje zrobionego więc dodajemy jako niezrobione -1 niezrobione, 1 zrobione
+			tasktab[tasktab.length-1].num = tasktab.length-1;
 			dodajZadanie(tasktab[tasktab.length-1]);
+			addTaskServer(tasktab[tasktab.length-1]); // +++
 		}
 		else
 			alert("Już posiadasz takie zadanie!");
 	}
-    addTaskServer(tasktab[tasktab.length-1]);
 }
 function zmienCheckBoxWTablicy(number){
 	tasktab[number].stat = - tasktab[number].stat;	
@@ -99,7 +100,7 @@ function dodajZadanie(zadanie){
 	if(document.getElementById("pustyid"))
 		listazadan.removeChild(listazadan.lastChild);
 	var newTask = document.createElement('p'); // tworzymy zadanie
-	zadanie.num = wsk+1;	
+	var wsk = zadanie.num; // +++
 		var newCheckBox = document.createElement('input');
 		newCheckBox.setAttribute('type', 'checkbox'); //nadawanie atrybutu type
 		newCheckBox.setAttribute('value', 'spotify'); //nadawanie atrybutu value
@@ -121,7 +122,7 @@ function dodajZadanie(zadanie){
 	listazadan.appendChild(newTask); // przypisanie dziecka rodzicowi (newTask -> listazadan)
 	document.getElementById('d'+ wsk).addEventListener('click', function() {usunZTablicy(zadanie.num)}, false);
 	document.getElementById('c'+ wsk).addEventListener('click', function() {zmienCheckBoxWTablicy(zadanie.num)}, false);
-	wsk++;
+	//wsk++; // +++
 };
 var ButtonNewTask = document.getElementById("taskbutton");
 ButtonNewTask.addEventListener('click', dodajZadanieDoTablicy, false);
@@ -136,20 +137,39 @@ document.addEventListener('keydown', function(event) {
 
 
 function getTasks() { // pobieramy listę zadań po wystąpieniu odpowiedniego zdarzenia
+	tasktab.splice(0); // +++
 	qwest.get(url, {}, {cache: true}).then(
 		function(xhr, response) {
 			response.forEach(function(element) {// wywołujemy dla każdego pobranego zasobu
 				tasktab[tasktab.length] = new Object();
-                tasktab[tasktab.length-1].task = element.body.title // treść zadania
-				tasktab[tasktab.length-1].stat = element.body.is_done;
+                tasktab[tasktab.length-1].task = document.createTextNode(element.body.title) // treść zadania // +++
+				if (element.body.is_done == true) // +++
+				{
+					tasktab[tasktab.length-1].stat = 1;
+				}
+				else // +++
+				{
+					tasktab[tasktab.length-1].stat = -1;
+				}
+				tasktab[tasktab.length-1].num = tasktab.length-1; // +++
+				tasktab[tasktab.length-1].id = element.id;
+				dodajZadanie(tasktab[tasktab.length-1]); // +++
+				//console.log(tasktab[tasktab.length-1]);
 		});
-		dodajZadanie(tasktab[tasktab.length-1]);
 	});
 }
 
 function addTaskServer(task) { // wysyłamy nowe zadanie po wciśnięciu klawisza ENTER lub kliknięciu przycisku
-	console.log(task.task + 'bon');
-    qwest.post(url, {title: task.task, is_done: task.stat}, {cache: true}); // wysłanie nowego zadania w postaci obiektu o właściwościach "title" i "is_done"
+	//console.log(task.task.node + 'bon'); // +++
+	if (task.stat == -1) // +++
+	{
+		task.stat = false;
+	}
+	else // +++
+	{
+		task.stat = true;
+	}
+    qwest.post(url, {title: task.task.nodeValue, is_done: task.stat}, {cache: true}); // wysłanie nowego zadania w postaci obiektu o właściwościach "title" i "is_done" // +++
 }
 
 function checkboxClick(event) { // stan kliknięcia checkboxa przy danym zadaniu (załóżmy, że funkcja wywołuje się po wystąpieniu pewnego zdarzenia
@@ -165,8 +185,8 @@ function deleteTask() { // usuwanie wybranego zadania pod wpływem wystąpienia 
 		refresh(); // odświeżamy stan strony
 	});
 }
-//getTasks();
-console.log(tasktab[0]);
+getTasks();
+//console.log(tasktab);
 
 
 
