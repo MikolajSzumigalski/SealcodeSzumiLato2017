@@ -1,8 +1,6 @@
 // Adres Sealcodeowego API
 var url='http://sealcode.org:8082/api/v1/resources/task';
 
-
-
 //USTAWIANIE DATY
 	var monthtab = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "wrzesień", "październik", "listopad", "grudzień"];
 
@@ -24,7 +22,6 @@ var url='http://sealcode.org:8082/api/v1/resources/task';
 var tasktab = [];
 var taskobj = new Object();
 var wsk = 0;
-
 function usunZadanie(task){
 	var removeElement = document.getElementById(task);
 	var containerElement = removeElement.parentNode;
@@ -38,7 +35,6 @@ function usunZTablicy(side){
 };
 
 function odswiezZadania(){
-	getTasks();
 	var listaodswiez = document.getElementById("listazadan");
 	while (listaodswiez.hasChildNodes()) { 
 	listaodswiez.removeChild(listaodswiez.lastChild);
@@ -97,6 +93,7 @@ function zmienCheckBoxWTablicy(number){
 	console.log(tasktab[number].stat);
 }
 function dodajZadanie(zadanie){
+    console.log("dupa");
 	var listazadan = document.getElementById("listazadan"); //listazadan jest "rodzicem" naszych zadań
 	if(document.getElementById("pustyid"))
 		listazadan.removeChild(listazadan.lastChild);
@@ -125,6 +122,7 @@ function dodajZadanie(zadanie){
 	document.getElementById('d'+ wsk).addEventListener('click', function() {usunZTablicy(zadanie.num)}, false);
 	document.getElementById('c'+ wsk).addEventListener('click', function() {zmienCheckBoxWTablicy(zadanie.num)}, false);
 	wsk++;
+    addTaskServer(tasktab[tasktab.length-1]);
 };
 var ButtonNewTask = document.getElementById("taskbutton");
 ButtonNewTask.addEventListener('click', dodajZadanieDoTablicy, false);
@@ -138,20 +136,19 @@ document.addEventListener('keydown', function(event) {
 });
 
 
-
 function getTasks() { // pobieramy listę zadań po wystąpieniu odpowiedniego zdarzenia
 	qwest.get(url, {}, {cache: true}).then(
 		function(xhr, response) {
-			response.forEach(function(element) {
-				console.log(element.body.title)// wywołujemy dla każdego pobranego zasobu
-				//tasktab[0].task.push(element.body.title); 
-				/* Teraz treść danego zadania i jego inne własciwości będą ukrywać się w tasks[index].body.nazwaWlasciwosci, np. tasks[0].body.title - nazwa pierwszego zadania w tablicy! */
-				refresh(); // odświeżamy stan strony
-	})});
+			response.forEach(function(element) {// wywołujemy dla każdego pobranego zasobu
+				tasktab[tasktab.length] = new Object();
+                tasktab[tasktab.length-1].task = element.body.title // treść zadania
+			    tasktab[tasktab.length-1].stat = element.body.is_done;
+})});
+    dodajZadanie(tasktab[tasktab.length-1]);
 }
 
 function addTaskServer(task) { // wysyłamy nowe zadanie po wciśnięciu klawisza ENTER lub kliknięciu przycisku
-	qwest.post(url, {title: task.title, is_done: task.is_done}, {cache: true}); // wysłanie nowego zadania w postaci obiektu o właściwościach "title" i "is_done"
+	qwest.post(url, {title: task.title, is_done: task.stat}, {cache: true}); // wysłanie nowego zadania w postaci obiektu o właściwościach "title" i "is_done"
 }
 
 function checkboxClick(event) { // stan kliknięcia checkboxa przy danym zadaniu (załóżmy, że funkcja wywołuje się po wystąpieniu pewnego zdarzenia
@@ -167,7 +164,8 @@ function deleteTask() { // usuwanie wybranego zadania pod wpływem wystąpienia 
 		refresh(); // odświeżamy stan strony
 	});
 }
-
+getTasks();
+console.log(tasktab.length);
 
 
 
